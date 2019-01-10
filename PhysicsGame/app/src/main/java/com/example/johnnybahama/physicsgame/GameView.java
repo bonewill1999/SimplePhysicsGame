@@ -3,9 +3,11 @@ package com.example.johnnybahama.physicsgame;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -29,6 +31,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context) {
         super(context);
+
 
         getHolder().addCallback(this);
 
@@ -59,8 +62,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        mainCharacter = new PlayableObject(BitmapFactory.decodeResource(getResources(),R.drawable.test), 220, 220, 1);
-        System.out.print("REEEEEEEEEEEEEEEEEEEE");
+        Bitmap placeholder = BitmapFactory.decodeResource(getResources(),R.drawable.ball);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(placeholder, 200, 200, false);
+
+
+
+        mainCharacter = new PlayableObject(resizedBitmap, 0, 0, 1);
+      //  System.out.print("REEEEEEEEEEEEEEEEEEEE");
 
 
 
@@ -74,18 +82,41 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                mainCharacter.move(0, 0, 1);
+                mainCharacter.move(200, 200, 1);
 
+//                Toast notLongError = Toast.makeText(dummyContext, String.valueOf(motionEvent.getX()), Toast.LENGTH_SHORT);
+//                notLongError.show();
+               // mainCharacter.checkDragged((int)Math.round(motionEvent.getX()),(int)Math.round(motionEvent.getY()));
 
-
-
-
+                System.out.print(String.valueOf(mainCharacter.getX()));
                 return false;
 
 
+            }
+        });
+
+        this.setOnDragListener(new OnDragListener() {
+            @Override
+            public boolean onDrag(View view, DragEvent dragEvent) {
+
+                //System.out.print("BALL CLICKED");
 
 
+                if(mainCharacter.isBeingDragged()){
+                    mainCharacter.setX((int)Math.round(dragEvent.getX()));
+                    mainCharacter.setY((int)Math.round(dragEvent.getY()));
 
+
+                }
+                return false;
+            }
+        });
+
+        this.setOnHoverListener(new OnHoverListener() {
+            @Override
+            public boolean onHover(View view, MotionEvent motionEvent) {
+                System.out.print("BALL CLICKED");
+                return false;
             }
         });
 
@@ -111,6 +142,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         mainCharacter.update();
 
+
     }
 
 
@@ -118,17 +150,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas)
     {
-       // System.out.print("REEEEEEEEEEEEEEEEEEEE");
+      //  mainCharacter.move(mainCharacter.getX()+20, mainCharacter.getY()+20, 1);
+    //    System.out.print("REEEEEEEEEEEEEEEEEEEE");
    //     canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.test), 50, 50, null);
 
 
 
         super.draw(canvas);
+        mainCharacter.draw(canvas);
         if(canvas!=null) {
             //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.andriod), 0, 0, null);
 
+           // mainCharacter.move(mainCharacter.getX()+20, mainCharacter.getY()+20, 1);
 
-            mainCharacter.draw(canvas);
+
 
             //System.out.print("REEEEEEEEEEEEEEEEEEEE");
             //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.test), 50, 50, null);

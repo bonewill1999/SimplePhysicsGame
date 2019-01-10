@@ -13,6 +13,7 @@ public class PlayableObject extends DynamicObject {
     private int moveSpeed;
     private int health = 5;
     private Canvas canvas;
+    private boolean beingDragged = false;
 
     private String commandMode;
 
@@ -52,12 +53,19 @@ public class PlayableObject extends DynamicObject {
     public void draw(Canvas canvas) {
       //  while(this.health > 0){
 
-            //System.out.print("REEEEEEEEEEEEEEEEEEEE");
+            System.out.print("REEEEEEEEEEEEEEEEEEEE");
 
             canvas.drawBitmap(this.image, this.x, this.y, null);
       //  }
     }
     public void update() {
+        int poopx = this.getX();
+        int poopy = this.getY();
+        poopx += 20;
+        poopy += 20;
+
+        this.x = poopx;
+        this.y = poopy;
 
     }
 
@@ -97,9 +105,13 @@ public class PlayableObject extends DynamicObject {
 
     public void move(int newX, int newY, int speed){
         System.out.print("pls work");
-        this.x = newX;
-        this.y = newY;
-    //    this.x +=20;
+        int poopx = this.getX();
+        int poopy = this.getY();
+        poopx += 20;
+        poopy += 20;
+
+        this.setX(poopx);
+        this.setY(poopy);
 
 
 ////        while(Math.abs(this.x - newX) < speed && Math.abs(this.y - newY) < speed){
@@ -121,9 +133,21 @@ public class PlayableObject extends DynamicObject {
 
     }
 
+    public void checkDragged(int clickedX, int clickedY){
+        if ((clickedX - this.x) < 250 && (clickedX - this.x) < 250){
+            this.x = clickedX;
+            this.y = clickedY;
 
+            this.beingDragged = true;
 
+        }
+        else {
+            this.beingDragged = false;
+        }
 
+    }
 
-
+    public boolean isBeingDragged() {
+        return beingDragged;
+    }
 }
