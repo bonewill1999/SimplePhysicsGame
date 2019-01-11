@@ -38,10 +38,11 @@ public class PlayableObject extends DynamicObject {
         this.canvas = canvas;
     }
 
-    public PlayableObject (Bitmap bmp, int x, int y, int moveSpeed) {
+    public PlayableObject (Bitmap bmp, int POO, int PEE, int moveSpeed) {
         this.image = bmp;
-        this.x = x;
-        this.y = y;
+        this.x = POO;
+        this.y = PEE;
+        System.out.print("INITIALIZED");
         this.moveSpeed = moveSpeed;
         this.canvas = canvas;
     }
@@ -49,23 +50,23 @@ public class PlayableObject extends DynamicObject {
 
 
 
-
     public void draw(Canvas canvas) {
       //  while(this.health > 0){
 
-            System.out.print("REEEEEEEEEEEEEEEEEEEE");
 
-            canvas.drawBitmap(this.image, this.x, this.y, null);
-      //  }
+            canvas.drawBitmap(this.image, x, y, null);
+        System.out.print("REEEEEEEEEEEEEEEEEEEE");
+
+        //  }
     }
     public void update() {
-        int poopx = this.getX();
-        int poopy = this.getY();
-        poopx += 20;
-        poopy += 20;
-
-        this.x = poopx;
-        this.y = poopy;
+//        int poopx = this.getX();
+//        int poopy = this.getY();
+//        poopx += 20;
+//        poopy += 20;
+//
+//        this.x = poopx;
+//        this.y = poopy;
 
     }
 
@@ -105,13 +106,7 @@ public class PlayableObject extends DynamicObject {
 
     public void move(int newX, int newY, int speed){
         System.out.print("pls work");
-        int poopx = this.getX();
-        int poopy = this.getY();
-        poopx += 20;
-        poopy += 20;
-
-        this.setX(poopx);
-        this.setY(poopy);
+        this.setX(880);
 
 
 ////        while(Math.abs(this.x - newX) < speed && Math.abs(this.y - newY) < speed){

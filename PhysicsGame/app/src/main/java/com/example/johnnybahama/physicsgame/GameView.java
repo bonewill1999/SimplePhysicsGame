@@ -24,6 +24,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     public PlayableObject mainCharacter;
     private final Context dummyContext = this.getContext();
+    private int testX = 250;
 
 
 
@@ -40,7 +41,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.setBackgroundResource(R.drawable.andriod);
 
 
-  //      mainCharacter = new PlayableObject(BitmapFactory.decodeResource(getResources(),R.drawable.test),getHolder().lockCanvas(), 3, 3, 3 );
+
 
         setFocusable(true);
 
@@ -62,13 +63,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+
         Bitmap placeholder = BitmapFactory.decodeResource(getResources(),R.drawable.ball);
+        //  mainCharacter = new PlayableObject(BitmapFactory.decodeResource(getResources(),R.drawable.test), 3, 3, 3 );
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(placeholder, 200, 200, false);
 
 
 
-        mainCharacter = new PlayableObject(resizedBitmap, 0, 0, 1);
-      //  System.out.print("REEEEEEEEEEEEEEEEEEEE");
+
+
+        mainCharacter = new PlayableObject(resizedBitmap, 250, 250, 1);
+
+
+
+        //  System.out.print("REEEEEEEEEEEEEEEEEEEE");
 
 
 
@@ -82,13 +90,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                mainCharacter.move(200, 200, 1);
+
 
 //                Toast notLongError = Toast.makeText(dummyContext, String.valueOf(motionEvent.getX()), Toast.LENGTH_SHORT);
 //                notLongError.show();
                // mainCharacter.checkDragged((int)Math.round(motionEvent.getX()),(int)Math.round(motionEvent.getY()));
+                mainCharacter.move(12,12,12);
+                testX = testX + 40;
 
-                System.out.print(String.valueOf(mainCharacter.getX()));
+              //  System.out.print(String.valueOf(mainCharacter.getX()));
                 return false;
 
 
@@ -103,8 +113,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
                 if(mainCharacter.isBeingDragged()){
-                    mainCharacter.setX((int)Math.round(dragEvent.getX()));
-                    mainCharacter.setY((int)Math.round(dragEvent.getY()));
+                 //   mainCharacter.setX((int)Math.round(dragEvent.getX()));
+                 //   mainCharacter.setY((int)Math.round(dragEvent.getY()));
 
 
                 }
@@ -157,16 +167,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
         super.draw(canvas);
-        mainCharacter.draw(canvas);
         if(canvas!=null) {
             //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.andriod), 0, 0, null);
 
            // mainCharacter.move(mainCharacter.getX()+20, mainCharacter.getY()+20, 1);
+            System.out.print(String.valueOf(testX));
+            mainCharacter.draw(canvas);
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.test), testX, 50, null);
+
 
 
 
             //System.out.print("REEEEEEEEEEEEEEEEEEEE");
             //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.test), 50, 50, null);
+
 
 
 
